@@ -6,8 +6,8 @@ function User({ user, handleDelete, handleComplete }) {
       <h3>{user.title}</h3><br />
       <p>{user.content}</p>
       <div className="btns">
-        <button className="Del_btn" onClick={() => handleDelete(user.id)}>삭제하기</button>
-        <button className="Comple_btn" onClick={() => handleComplete(user.id)}>완료</button>
+        <button className="delBtn" onClick={() => handleDelete(user.id)}>삭제하기</button>
+        <button className="compleBtn" onClick={() => handleComplete(user.id)}>완료</button>
       </div>
     </div>
   );
@@ -17,7 +17,7 @@ const App = () => {
   const [users, setUsers] = useState([]);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [showcard, setShowcard] = useState([]);
+  const [showCard, setShowCard] = useState([]);
   const [completedCards, setCompletedCards] = useState([]);
 
   const addHandler = () => {
@@ -30,27 +30,27 @@ const App = () => {
     setUsers([...users, newUser]);
     setTitle('');
     setContent('');
-    setShowcard([...showcard, newUser]);
+    setShowCard([...showCard, newUser]);
   };
 
-  //삭제 버튼
+  // 삭제 버튼
   const deleteHandler = (id) => {
     const newUserList = users.filter((user) => user.id !== id);
     setUsers(newUserList);
 
-    const newShowcardList = showcard.filter((card) => card.id !== id);
-    setShowcard(newShowcardList);
+    const newShowCardList = showCard.filter((card) => card.id !== id);
+    setShowCard(newShowCardList);
   };
 
-  //완료 버튼
+  // 완료 버튼
   const completeHandler = (id) => {
-    const completedCard = showcard.find((card) => card.id === id);
+    const completedCard = showCard.find((card) => card.id === id);
     setCompletedCards([...completedCards, completedCard]);
-    const newShowcardList = showcard.filter((card) => card.id !== id);
-    setShowcard(newShowcardList);
+    const newShowCardList = showCard.filter((card) => card.id !== id);
+    setShowCard(newShowCardList);
   };
 
-  //완료하기 폼에서 삭제
+  // 완료하기 폼에서 삭제
   const deleteFromCompleted = (id) => {
     const newCompletedCards = completedCards.filter((card) => card.id !== id);
     setCompletedCards(newCompletedCards);
@@ -63,7 +63,7 @@ const App = () => {
 
   return (
     <div>
-      <h1 className="Title">My ToDo List</h1>
+      <h1 className="title">My ToDo List</h1>
       <div className="container">
         <input
           value={title}
@@ -77,14 +77,14 @@ const App = () => {
         />
         <button onClick={addHandler}>추가하기</button>
       </div>
-      <div className="showcard">
+      <div className="showCard">
         <b>오늘 할것</b>
-        {showcard.map((card) => (
+        {showCard.map((card) => (
           <User user={card} key={card.id} handleDelete={handleDelete} handleComplete={completeHandler} />
         ))}
       </div>
 
-      <div className="comple_container">
+      <div className="compleContainer">
         <b>완료된것</b>
         {completedCards.map((card) => (
           <User user={card} key={card.id} handleDelete={handleDelete}/>
